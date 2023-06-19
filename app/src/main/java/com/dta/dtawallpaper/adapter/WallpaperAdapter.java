@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.dta.dtawallpaper.R;
 import com.dta.dtawallpaper.entity.WallPaperEntity;
 
@@ -37,11 +40,13 @@ public class WallpaperAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup viewGroup) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         View inflate = View.inflate(context, R.layout.item_wallpaper, null);
-        ImageView img_wallpapper = inflate.findViewById(R.id.img_item_wallpaper);
-        //TODO to set imgwallpaper
-
-        return null;
+        ImageView img_wallpaper = inflate.findViewById(R.id.img_item_wallpaper);
+        String smallPicUrl = wallPaperEntityList.get(position).getSmallPic();
+        RoundedCorners corners = new RoundedCorners(20);
+        RequestOptions options = new RequestOptions().bitmapTransform(corners);
+        Glide.with(img_wallpaper).load(smallPicUrl).apply(options).into(img_wallpaper);
+        return inflate;
     }
 }
