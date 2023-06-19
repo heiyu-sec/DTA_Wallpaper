@@ -1,9 +1,11 @@
 package com.dta.dtawallpaper.adapter;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
 import com.dta.dtawallpaper.R;
 import com.dta.dtawallpaper.entity.WallPaperEntity;
@@ -36,7 +38,9 @@ public class WallpaperAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-        View.inflate(context, R.layout.item_wallpaper,null);
+        View inflate = View.inflate(context, R.layout.item_wallpaper, null);
+        ImageView img_wallpapper = inflate.findViewById(R.id.img_item_wallpaper);
+        //TODO to set imgwallpaper
 
         return null;
     }
