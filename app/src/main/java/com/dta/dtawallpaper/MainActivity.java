@@ -23,6 +23,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,10 +82,16 @@ public class MainActivity extends AppCompatActivity {
         }
         isLoading = true;
         Map<String, String> params = new HashMap<>();
-        params.put("classify","yzmn");
+        String classify = "yzmn";
+        String timestamp = System.currentTimeMillis()+"";
+        params.put("classify",classify);
         params.put("pageNum",page+"");
         params.put("limit","20");
-        OkHttpUtil.post("http://www.dtasecurity.cn:18080/demo01/getWallpaper",
+        params.put("timestamp",timestamp);
+        String sign = md5(classify+page+timestamp);
+        params.put("sign",sign);
+
+        OkHttpUtil.post("http://www.dtasecurity.cn:18080/demo02/getWallpaper",
                 params,
                 new Callback() {
                     @Override
@@ -107,5 +114,20 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
         page++;
+    }
+    String[] hexs = {"0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F",};
+    public String md5(String data) {
+        try {
+            MessageDigest md5 = MessageDigest.getInstance("md5");
+            byte[] digest = md5.digest(data.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (byte b : digest){
+                sb.append(hexs[b >> 4 & 0xF]);
+                sb.append(hexs[b & 0xF]);
+            }
+            return  sb.toString();
+        }catch (Exception e){
+            return null;
+        }
     }
 }
