@@ -32,6 +32,8 @@ import java.util.Map;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import static com.dta.dtawallpaper.util.OkHttpUtil.in_cer;
+
 
 public class MainActivity extends AppCompatActivity {
     private GridView gv_main;
@@ -90,8 +92,12 @@ public class MainActivity extends AppCompatActivity {
         params.put("timestamp",timestamp);
         String sign = md5(classify+page+timestamp);
         params.put("sign",sign);
+        try {
+            in_cer = getAssets().open("wallpaper.cer");
+        }catch (Exception e){
 
-        OkHttpUtil.post("http://www.dtasecurity.cn:18080/demo02/getWallpaper",
+        }
+        OkHttpUtil.post("https://www.dtasecurity.cn:18081/demo02/getWallpaper",
                 params,
                 new Callback() {
                     @Override
