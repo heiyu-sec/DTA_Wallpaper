@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         }catch (Exception e){
 
         }
-        OkHttpUtil.post("https://www.dtasecurity.cn:18081/demo02/getWallpaper",
+        OkHttpUtil.post("http://www.dtasecurity.cn:18080/demo02/getWallpaper",
                 params,
                 new Callback() {
                     @Override
